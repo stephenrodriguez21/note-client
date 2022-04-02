@@ -1,8 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable, Subscription } from 'rxjs';
+import { AuthService } from '../auth.service';
+import { BlogService } from '../blog.service';
 import { EditBlogModalComponent } from '../modals/edit-blog-modal/edit-blog-modal.component';
-import { Blog } from '../models/blog';
+import { Blog, BlogEditModel } from '../models/blog';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-blog-list',
@@ -11,48 +15,71 @@ import { Blog } from '../models/blog';
 })
 export class BlogListComponent implements OnInit {
 
-  blogs: Blog[] = [];
-  title = 'angular-bootstrap-modal';
+  blogs!: Observable<Blog[]>;
+  editBlog!: Blog;
+  clickEventsubscription$!: Subscription;
+  isAuthenticated: boolean = false;
 
-  constructor(public http: HttpClient, private modalService: NgbModal) { }
+  constructor(private authService: AuthService,
+    private blogService: BlogService,
+    private modalService: NgbModal,
+    private sharedService: SharedService) {
+
+    this.clickEventsubscription$ = this.sharedService.getClickEvent().subscribe(() => {
+      this.openModal(new Blog())
+    });
+  }
 
   ngOnInit(): void {
-    this.http.get('http://0.0.0.0:8000/blogs')
-      .subscribe(
-        (data: any) => this.load_blogs(data),
-        err => console.log(err)
-      );
-
-    this.http.get('http://0.0.0.0:8000/blogs/5')
-      .subscribe(
-        (data: any) => console.log(data),
-        err => console.log(err)
-      );
+    this.checkIfAuthenticated();
+    this.getBlogs()
   }
 
-  load_blogs(items: Blog[]): void {
-    this.blogs = items
+  checkIfAuthenticated(): void {
+    this.isAuthenticated = this.authService.isAuthenticated()
   }
 
-  openModal() {
+  getBlogs(): void {
+    this.blogs = this.blogService.getAll();
+  }
+
+  renderModal(): void {
     const modalRef = this.modalService.open(EditBlogModalComponent,
       {
         size: 'lg',
-        // keyboard: false,
         backdrop: 'static'
       });
 
-    let data = {
-      name: 'Some Data',
-      content: 'From Parent Component',
-      status: 'initial'
-    }
+    modalRef.componentInstance.fromParent = this.editBlog;
+    modalRef.result.then((editModel: BlogEditModel) => {
+      if (editModel == null) return;
 
-    modalRef.componentInstance.fromParent = data;
-    modalRef.result.then((result) => {
-      console.log(result);
-    }, (reason) => {
+      if (editModel.id > 0) {
+        this.updateBlog(editModel)
+      } else {
+        this.createBlog(editModel)
+      }
     });
+  }
+
+  updateBlog(editModel: BlogEditModel) {
+    this.blogService.updateBlog(editModel).subscribe(() => this.getBlogs())
+  }
+
+  createBlog(editModel: BlogEditModel) {
+    this.blogService.createBlog(editModel).subscribe(() => this.getBlogs())
+  }
+
+  openModal(blog: Blog) {
+    if (blog.id > 0) {
+      this.blogService.editBlog(blog.id).subscribe((blog: Blog) => {
+        this.editBlog = blog;
+        this.renderModal();
+      })
+    } else {
+      this.editBlog = blog;
+      this.renderModal();
+    }
   }
 
 }
