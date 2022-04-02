@@ -19,8 +19,12 @@ export class AuthInterceptorService implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError((err) => {
                 if (err instanceof HttpErrorResponse) {
-                    if (err.status === 401) {
-                        // redirect user to the logout page
+                    if (err.status === 403) {
+                        if (this.authService.getAuthToken()) {
+                            this.authService.logout().subscribe(() => {
+                                window.location.reload();
+                            })
+                        }
                     }
                 }
                 return throwError(err);

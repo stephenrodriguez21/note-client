@@ -1,22 +1,35 @@
 <div class="main">
     <h1 class="heading">Blogs</h1>
     <ul class="cards">
-      <li class="cards_item" *ngFor="let blog of blogs; let i = index">
-        <div class="card">
-          <div class="card_content">
-            <div class="card-action">
-                <div class="edit-icon" (click)="openModal()"><i class="material-icons">edit</i></div>
+        <li class="cards_item" *ngFor="let blog of blogs | async; let i = index">
+            <div class="card">
+                <div class="card_content">
+                    <div class="card-action" [hidden]="isAuthenticated == true">
+                        <div class="edit-icon" (click)="openModal(blog)"><i class="material-icons">edit</i></div>
+                    </div>
+                    <h2 class="card_title">{{blog.name}}</h2>
+                    <p class="card_text">{{blog.content}}</p>
+                    <div class="card_widget">
+                        <div class="card_person">
+                            <span class=""><i class="material-icons">account_circle</i></span>
+                            <span class=""> {{blog.author}}</span>
+                        </div>
+                        <div class="card_person">
+                            <span class=""><i class="material-icons">class</i></span>
+                            <span class=""> {{blog.category}}</span>
+                        </div>
+                        <div class="card_person">
+                            <span class="" style="font-size:smaller;"><i
+                                    class="material-icons">hourglass_empty</i></span>
+                            <span class=""> {{blog.status}}</span>
+                        </div>
+                    </div>
+                    <p></p>
+                    <button class="btn card_btn" [hidden]="isAuthenticated == true">
+                        <div class="delete-icon"><i class="material-icons">delete</i></div>
+                    </button>
+                </div>
             </div>
-            <h2 class="card_title">{{blog.name}}</h2>
-            <p class="card_text">{{blog.content}}</p>
-            <div class="card_person">
-                <p class=""><i class="material-icons">person_pin</i></p>
-                <p class=""> {{blog.author}}</p>
-            </div>
-            <span class="badge rounded-pill bg-info">Primary</span>
-            <button class="btn card_btn"><div class="delete-icon"><i class="material-icons">delete</i></div></button>
-          </div>
-        </div>
-      </li>
+        </li>
     </ul>
-  </div>
+</div>

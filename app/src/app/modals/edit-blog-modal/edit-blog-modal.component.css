@@ -1,5 +1,5 @@
 .modal-header {
-    background-color: indianred;
+    background: linear-gradient(to bottom left, #EF8D9C 40%, #FFC39E 100%);
     color: cornsilk;
     font-size: 14px;
 }

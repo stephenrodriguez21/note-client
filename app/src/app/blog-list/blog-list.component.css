@@ -137,5 +137,11 @@ img {
 
 .card_person{
     display: flex;
-    color: darkred
+    color: darkslategray;
+    font-size: small;
+    padding-right: 10px;
+}
+
+.card_widget {
+    display: flex;
 }
