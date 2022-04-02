@@ -1,14 +1,17 @@
 # App
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.1. <br>
+1. Make sure you have latest version of <b>Nodejs</b> installed on your machine.
+2. Make sure to run back-end app(note-api)
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## 1.Note app basic view
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+
 
 ## Build
 
