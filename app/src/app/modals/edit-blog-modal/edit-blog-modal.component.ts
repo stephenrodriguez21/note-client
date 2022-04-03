@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { BlogCategoryModel, BlogEditModel } from 'src/app/models/blog';
+import { BlogCategoryModel, BlogEditModel, BlogStatusModel } from 'src/app/models/blog';
 
 @Component({
   selector: 'app-edit-blog-modal',
@@ -13,20 +14,36 @@ export class EditBlogModalComponent implements OnInit {
   fromParent!: BlogEditModel;
   title: string = 'Create Blog';
 
-  blogStatus = ["created", "pending_verification", "verified", "rejected"]
+  blogStatus: BlogStatusModel[] = [
+    { name: 'Created', value: "created" },
+    { name: 'Pending', value: "pending_verification" },
+    { name: 'Verified', value: "verified" },
+    { name: 'Rejected', value: "rejected" }
+  ]
   blogCategories: BlogCategoryModel[] = [
     { id: 1, name: "Fashion" },
     { id: 2, name: "Food" },
     { id: 3, name: "Technology" },
     { id: 4, name: "Science" },
     { id: 5, name: "Politics" }
-  ]
+  ];
+
+  editBlogForm = this.fb.group({
+    id: 0,
+    name: ['', Validators.required],
+    content: ['', Validators.required],
+    status: ['', Validators.required],
+    category_id: ['', Validators.required],
+  });
 
   constructor(
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
+    this.editBlogForm.patchValue(this.fromParent);
+
     if (this.fromParent.id > 0) {
       this.title = 'Edit Blog';
     }
@@ -37,6 +54,8 @@ export class EditBlogModalComponent implements OnInit {
   }
 
   saveChanges(): void {
-    this.activeModal.close(this.fromParent)
+    if (this.editBlogForm.valid) {
+      this.activeModal.close(this.editBlogForm.value);
+    }
   }
 }

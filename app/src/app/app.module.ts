@@ -11,9 +11,11 @@ import { AuthInterceptorService } from './interceptor.service';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EditBlogModalComponent } from './modals/edit-blog-modal/edit-blog-modal.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BlogService } from './blog.service';
 import { SharedService } from './shared.service';
+import { ToastsContainerComponent } from './notification/toasts-container/toasts-container.component';
+import { ToastService } from './notification/services/toast.service';
 
 @NgModule({
   declarations: [
@@ -21,18 +23,21 @@ import { SharedService } from './shared.service';
     NavbarComponent,
     BlogListComponent,
     EditBlogModalComponent,
+    ToastsContainerComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,
     BlogService,
     SharedService,
+    ToastService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
