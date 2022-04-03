@@ -8,14 +8,14 @@
     <form [formGroup]="editBlogForm">
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" formControlName="name" name="name" required>
-            <p style="color:red;" *ngIf="editBlogForm?.get('name')?.errors">Field id required</p>
+            <input type="text" class="form-control" id="name" formControlName="name" name="name">
+            <p class="inline-error" style="color:red;" *ngIf="editBlogForm?.get('name')?.errors">Field id required</p>
         </div>
 
         <div class="form-group">
             <label for="content">Content</label>
-            <input type="text" class="form-control" id="content" formControlName="content" name="content" required>
-            <p style="color:red;" *ngIf="editBlogForm?.get('content')?.errors">Field id required</p>
+            <textarea class="form-control" name="content" id="content" formControlName="content" cols="30" rows="4"></textarea>
+            <p class="inline-error" style="color:red;" *ngIf="editBlogForm?.get('content')?.errors">Field id required</p>
         </div>
 
         <div class="form-group">
@@ -24,7 +24,7 @@
                 <option *ngFor="let blogCategory of blogCategories" [value]="blogCategory.id">{{blogCategory.name}}
                 </option>
             </select>
-            <p style="color:red;" *ngIf="editBlogForm?.get('category_id')?.errors">Field id required</p>
+            <p class="inline-error" style="color:red;" *ngIf="editBlogForm?.get('category_id')?.errors">Field id required</p>
         </div>
 
         <div class="form-group">
@@ -32,7 +32,12 @@
             <select class="form-control" id="status" formControlName="status">
                 <option *ngFor="let status of blogStatus" [value]="status.value">{{status.name}}</option>
             </select>
-            <p style="color:red;" *ngIf="editBlogForm?.get('status')?.errors">Field id required</p>
+            <p class="inline-error" style="color:red;" *ngIf="editBlogForm?.get('status')?.errors">Field id required</p>
+        </div>
+
+        <div class="form-group">
+            <label for="name">Author(You)</label>
+            <input type="text" class="form-control" id="name" formControlName="author" name="name">
         </div>
     </form>
 </div>

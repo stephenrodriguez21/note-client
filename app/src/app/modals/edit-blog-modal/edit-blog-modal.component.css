@@ -3,3 +3,9 @@
     color: cornsilk;
     font-size: 14px;
 }
+
+.inline-error {
+    color: red;
+    font-size: 12px;
+    font-weight: 800;
+}

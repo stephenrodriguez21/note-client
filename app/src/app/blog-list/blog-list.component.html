@@ -5,29 +5,32 @@
             <div class="card">
                 <div class="card_content">
                     <div class="card-action" [hidden]="isAuthenticated == true">
-                        <div class="edit-icon" (click)="openModal(blog)"><i class="material-icons">edit</i></div>
+                        <div class="edit-icon" (click)="showEditBlogModal(blog)"><i class="material-icons">edit</i>
+                        </div>
                     </div>
                     <h2 class="card_title">{{blog.name}}</h2>
                     <p class="card_text">{{blog.content}}</p>
                     <div class="card_widget">
-                        <div class="card_person">
+                        <div class="card_widget_item">
                             <span class=""><i class="material-icons">account_circle</i></span>
                             <span class=""> {{blog.author}}</span>
                         </div>
-                        <div class="card_person">
+                        <div class="card_widget_item">
                             <span class=""><i class="material-icons">class</i></span>
                             <span class=""> {{blog.category}}</span>
                         </div>
-                        <div class="card_person">
+                        <div class="card_widget_item">
                             <span class="" style="font-size:smaller;"><i
                                     class="material-icons">hourglass_empty</i></span>
                             <span class=""> {{blog.status}}</span>
                         </div>
                     </div>
                     <p></p>
-                    <button class="btn card_btn" [hidden]="isAuthenticated == true">
-                        <div class="delete-icon"><i class="material-icons">delete</i></div>
-                    </button>
+                    <div>
+                        <div class="btn card_btn" (click)="deleteBlog(blog)" [hidden]="isAuthenticated == true">
+                            <div class="delete-icon"><i class="material-icons">delete</i></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </li>
