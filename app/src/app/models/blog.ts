@@ -19,3 +19,8 @@ export class BlogCategoryModel {
     id: number = 0;
     name: string = "";
 }
+
+export class BlogStatusModel {
+    name: string = "";
+    value: string = "";
+}

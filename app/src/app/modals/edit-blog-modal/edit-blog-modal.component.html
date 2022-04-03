@@ -5,30 +5,38 @@
     </button>
 </div>
 <div class="modal-body">
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" required [(ngModel)]="fromParent.name" name="name" required>
-    </div>
+    <form [formGroup]="editBlogForm">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name" name="name" required>
+            <p style="color:red;" *ngIf="editBlogForm?.get('name')?.errors">Field id required</p>
+        </div>
 
-    <div class="form-group">
-        <label for="content">Content</label>
-        <input type="text" class="form-control" id="content" [(ngModel)]="fromParent.content" name="content" required>
-    </div>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <input type="text" class="form-control" id="content" formControlName="content" name="content" required>
+            <p style="color:red;" *ngIf="editBlogForm?.get('content')?.errors">Field id required</p>
+        </div>
 
-    <div class="form-group">
-        <label for="power">Category</label>
-        <select class="form-control" id="category" required [(ngModel)]="fromParent.category_id" name="category" required>
-            <option *ngFor="let blogCategory of blogCategories" [value]="blogCategory.id">{{blogCategory.name}}</option>
-        </select>
-    </div>
+        <div class="form-group">
+            <label for="power">Category</label>
+            <select class="form-control" id="category" formControlName="category_id" name="category">
+                <option *ngFor="let blogCategory of blogCategories" [value]="blogCategory.id">{{blogCategory.name}}
+                </option>
+            </select>
+            <p style="color:red;" *ngIf="editBlogForm?.get('category_id')?.errors">Field id required</p>
+        </div>
 
-    <div class="form-group">
-        <label for="power">Status</label>
-        <select class="form-control" id="status" required [(ngModel)]="fromParent.status" required>
-            <option *ngFor="let status of blogStatus" [value]="status">{{status}}</option>
-        </select>
-    </div>
+        <div class="form-group">
+            <label for="power">Status</label>
+            <select class="form-control" id="status" formControlName="status">
+                <option *ngFor="let status of blogStatus" [value]="status.value">{{status.name}}</option>
+            </select>
+            <p style="color:red;" *ngIf="editBlogForm?.get('status')?.errors">Field id required</p>
+        </div>
+    </form>
 </div>
+
 <div class="modal-footer">
     <button type="button" class="btn btn-secondary" data-dismiss="modal"
         style="background-color: beige; border-color: beige; color: indianred;"

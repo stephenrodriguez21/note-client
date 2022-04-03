@@ -6,6 +6,7 @@ import { AuthService } from '../auth.service';
 import { BlogService } from '../blog.service';
 import { EditBlogModalComponent } from '../modals/edit-blog-modal/edit-blog-modal.component';
 import { Blog, BlogEditModel } from '../models/blog';
+import { ToastService } from '../notification/services/toast.service';
 import { SharedService } from '../shared.service';
 
 @Component({
@@ -23,6 +24,7 @@ export class BlogListComponent implements OnInit {
   constructor(private authService: AuthService,
     private blogService: BlogService,
     private modalService: NgbModal,
+    private toastService: ToastService,
     private sharedService: SharedService) {
 
     this.clickEventsubscription$ = this.sharedService.getClickEvent().subscribe(() => {
@@ -75,7 +77,9 @@ export class BlogListComponent implements OnInit {
       this.blogService.editBlog(blog.id).subscribe((blog: Blog) => {
         this.editBlog = blog;
         this.renderModal();
-      })
+      }, (err) => {
+        if (err.status === 401) this.toastService.show('You can only modify your blogs.', { classname: 'bg-danger text-light', delay: 2500 });
+      });
     } else {
       this.editBlog = blog;
       this.renderModal();
