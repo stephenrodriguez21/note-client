@@ -2,7 +2,7 @@ export class Blog {
     id: number = 0;
     name: string = "";
     content: string = "";
-    author: string = "";
+    author?: string = "";
     category: string = "";
     status: string = "";
 }

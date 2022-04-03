@@ -28,4 +28,8 @@ export class BlogService {
   updateBlog(model: BlogEditModel): Observable<any> {
     return this.http.put<Blog>(`${this.baseUrl}/blogs/${model.id}`, model)
   }
+
+  deleteBlog(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/blogs/${id}`)
+  }
 }

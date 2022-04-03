@@ -34,6 +34,7 @@ export class EditBlogModalComponent implements OnInit {
     content: ['', Validators.required],
     status: ['', Validators.required],
     category_id: ['', Validators.required],
+    author: [{value: '', disabled: true}]
   });
 
   constructor(

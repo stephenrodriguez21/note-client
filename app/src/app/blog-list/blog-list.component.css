@@ -135,11 +135,12 @@ img {
     padding: 8px;
 }
 
-.card_person{
+.card_widget_item{
     display: flex;
     color: darkslategray;
     font-size: small;
     padding-right: 10px;
+    align-items: center;
 }
 
 .card_widget {
