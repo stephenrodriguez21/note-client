@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
-import { BlogCategoryModel } from './models/blog';
 
 @Injectable({
   providedIn: 'root'

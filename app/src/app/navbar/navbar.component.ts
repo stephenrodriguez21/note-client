@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { BlogService } from '../blog.service';
-import { Authentication, LoggedInUser, Login } from '../models/login';
-import { SharedService } from '../shared.service';
+import { Authentication, Login } from '../models/login';
+import { AuthService } from '../services/auth.service';
+import { SharedService } from '../services/shared.service';
 
 
 @Component({

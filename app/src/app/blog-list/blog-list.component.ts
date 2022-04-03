@@ -1,13 +1,12 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, Subscription } from 'rxjs';
-import { AuthService } from '../auth.service';
-import { BlogService } from '../blog.service';
 import { EditBlogModalComponent } from '../modals/edit-blog-modal/edit-blog-modal.component';
 import { Blog, BlogEditModel } from '../models/blog';
 import { ToastService } from '../notification/services/toast.service';
-import { SharedService } from '../shared.service';
+import { AuthService } from '../services/auth.service';
+import { BlogService } from '../services/blog.service';
+import { SharedService } from '../services/shared.service';
 
 @Component({
   selector: 'app-blog-list',
